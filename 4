@@ -1,0 +1,43 @@
+Router1
+enable
+configure terminal
+ipv6 unicast-routing
+interface gigabitEthernet0/0
+ipv6 address 2001:DB8:1:1::1/64
+no shutdown
+exit
+interface gigabitEthernet0/1
+ipv6 address 2001:DB8:1:12::1/64
+no shutdown
+exit
+ipv6 route 2001:DB8:1:2::/64 2001:DB8:1:12::2
+end
+write memory
+Router2
+enable
+configure terminal
+ipv6 unicast-routing
+interface gigabitEthernet0/0
+ipv6 address 2001:DB8:1:12::2/64
+no shutdown
+exit
+interface gigabitEthernet0/1
+ipv6 address 2001:DB8:1:2::1/64
+no shutdown
+exit
+ipv6 route 2001:DB8:1:1::/64 2001:DB8:1:12::1
+end
+write memory
+Check
+show ipv6 interface brief
+show ipv6 route
+show ipv6 neighbors
+show running-config
+
+For the PCs:
+
+PC
+→ Desktop
+→ IP Configuration
+→ IPv6
+→ Auto Config
