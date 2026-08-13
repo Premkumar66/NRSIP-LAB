@@ -1,0 +1,21 @@
+Switch S1
+enable
+configure terminal
+spanning-tree vlan 1 priority 4096
+end
+write memory
+Switch S2
+enable
+show spanning-tree
+Switch S3
+enable
+show spanning-tree
+Check
+show spanning-tree
+show spanning-tree vlan 1
+show spanning-tree summary
+show interfaces status
+show mac address-table
+show running-config
+
+The manual configures S1 as the Root Bridge using priority 4096.
