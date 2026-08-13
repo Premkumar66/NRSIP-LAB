@@ -1,0 +1,39 @@
+Router
+enable
+configure terminal
+
+interface gigabitEthernet0/0
+ip address 192.168.1.1 255.255.255.0
+ip nat inside
+no shutdown
+exit
+
+interface gigabitEthernet0/1
+ip address 200.1.1.1 255.255.255.0
+ip nat outside
+no shutdown
+exit
+
+access-list 1 permit 192.168.1.0 0.0.0.255
+
+ip nat pool NATPOOL 200.1.1.10 200.1.1.20 netmask 255.255.255.0
+
+ip nat inside source list 1 pool NATPOOL
+
+ip route 0.0.0.0 0.0.0.0 200.1.1.2
+
+end
+write memory
+PAT
+enable
+configure terminal
+access-list 1 permit 192.168.1.0 0.0.0.255
+ip nat inside source list 1 interface gigabitEthernet0/1 overload
+end
+write memory
+Check
+show ip nat translations
+show ip nat statistics
+show ip interface brief
+show access-lists
+show running-config
